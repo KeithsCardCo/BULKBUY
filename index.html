@@ -4,230 +4,231 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell Your Bulk — Keith Card Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#F5F5F4;
-    --card:#FFFFFF;
-    --border:#D6D6D2;
-    --border-soft:#E6E6E3;
-    --ink:#2B2B2B;
-    --ink-soft:#6B6B67;
-    --red:#E3350D;
-    --red-dark:#B92A0A;
+    --ink:#F3ECDC; --ink-2:#1C1712; --ink-3:#241D16;
+    --paper:#120E0A; --paper-dim:#8C8172;
+    --brass:#4E9B76; --brass-dim:#3A7259;
+    --holo-1:#D98F5A; --holo-2:#9C5C86; --danger:#E06B5C;
+    --line:rgba(243,236,220,0.10); --line-strong:rgba(243,236,220,0.20);
   }
   *{box-sizing:border-box;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    padding:32px 16px 64px;
-  }
-  .wrap{max-width:560px; margin:0 auto;}
-
-  .brand{display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:6px;}
-  .ball{width:28px;height:28px;border-radius:50%;position:relative;border:2px solid var(--ink); overflow:hidden; flex:none;}
-  .ball::before{content:"";position:absolute;top:0;left:0;right:0;height:50%;background:var(--red);}
-  .ball::after{content:"";position:absolute;top:50%;left:0;right:0;height:2px;background:var(--ink); transform:translateY(-1px);}
-  .ball i{position:absolute;top:50%;left:50%;width:8px;height:8px;background:#fff;border:2px solid var(--ink);border-radius:50%;transform:translate(-50%,-50%);z-index:2;}
-  .brand span{font-weight:700; letter-spacing:1.5px; font-size:15px;}
-
-  h1{text-align:center; font-size:26px; margin:4px 0 4px; letter-spacing:-0.3px;}
-  .sub{text-align:center; color:var(--ink-soft); font-size:14.5px; margin:0 0 28px; line-height:1.5;}
-
-  .pricecard{
-    background:var(--card); border:1px solid var(--border); border-radius:12px;
-    padding:14px 16px; margin-bottom:28px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;
-    text-align:center;
-  }
-  .pricecard.row2extra{grid-template-columns:1fr 1fr; margin-top:10px; margin-bottom:0;}
-  .pricecard div{padding:6px 2px;}
-  .pricecard .label{display:block; font-size:11.5px; color:var(--ink-soft); margin-bottom:4px;}
-  .pricecard .val{font-weight:700; font-size:15px;}
-
-  form{background:var(--card); border:1px solid var(--border); border-radius:14px; padding:24px 22px;}
-
-  fieldset{border:none; padding:0; margin:0 0 22px;}
-  legend{font-weight:700; font-size:13px; text-transform:uppercase; letter-spacing:0.6px; color:var(--ink-soft); margin-bottom:10px; padding:0;}
-
-  label{display:block; font-size:14px; font-weight:600; margin-bottom:6px; margin-top:16px;}
-  label:first-of-type{margin-top:0;}
-  .hint{font-size:12.5px; color:var(--ink-soft); font-weight:400; margin-top:2px;}
-
-  input[type=text], input[type=email], input[type=tel], input[type=number], textarea, select{
-    width:100%; padding:10px 12px; border:1px solid var(--border); border-radius:8px;
-    font-size:14.5px; font-family:inherit; background:#FAFAF9; color:var(--ink);
-  }
-  input:focus, textarea:focus, select:focus{outline:2px solid var(--red); outline-offset:1px; background:#fff;}
-  textarea{resize:vertical; min-height:70px;}
-
-  .row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
-  .row2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-  @media (max-width:420px){ .row3{grid-template-columns:1fr;} .row2{grid-template-columns:1fr;} }
-
-  .radios{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
-  .radios label{
-    display:flex; align-items:center; gap:6px; font-weight:500; font-size:13.5px;
-    border:1px solid var(--border); border-radius:20px; padding:7px 14px; margin:0; cursor:pointer; background:#FAFAF9;
-  }
-  .radios input{width:auto;}
-
-  button{
-    width:100%; padding:14px; margin-top:8px; background:var(--red); color:#fff; border:none;
-    border-radius:9px; font-size:15.5px; font-weight:700; cursor:pointer; letter-spacing:0.2px;
-  }
-  button:hover{background:var(--red-dark);}
-  button:active{transform:translateY(1px);}
-
-  .foot{text-align:center; font-size:12.5px; color:var(--ink-soft); margin-top:18px; line-height:1.5;}
-
-  #status{display:none; text-align:center; padding:14px; margin-top:14px; border-radius:9px; font-size:14px; font-weight:600;}
-  #status.ok{display:block; background:#EAF7EF; color:#1E7A3D; border:1px solid #BFE6CC;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;}
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px 60px;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 0 20px;border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:34px;height:34px;border-radius:6px;background:linear-gradient(155deg,var(--holo-1),var(--holo-2));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:#fff;flex-shrink:0;}
+  .brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:19px;}
+  .brand-sub{font-size:11px;color:var(--paper-dim);text-transform:uppercase;letter-spacing:.14em;margin-top:1px;}
+  .rail{display:flex;flex-wrap:wrap;margin:26px 0 6px;border:1px solid var(--line-strong);border-radius:10px;overflow:hidden;}
+  .rail-item{flex:1 1 33%;padding:14px 10px;text-align:center;border-right:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong);}
+  .rail-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;opacity:.6;margin-bottom:6px;}
+  .rail-price{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:15px;color:var(--brass-dim);}
+  h1.page-title{font-family:'Fraunces',serif;font-weight:500;font-size:26px;margin:28px 0 4px;}
+  p.page-sub{opacity:.65;font-size:14px;margin:0 0 24px;line-height:1.6;}
+  .card{background:var(--ink-2);border:1px solid var(--line-strong);border-radius:12px;padding:22px 22px 24px;margin-bottom:16px;}
+  .card-title{font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin:0 0 14px;display:flex;align-items:center;gap:8px;}
+  .card-title .n{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--brass-dim);border:1px solid var(--brass-dim);border-radius:4px;width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+  .field{margin-bottom:12px;}
+  .field:last-child{margin-bottom:0;}
+  .field label{display:block;font-size:12px;opacity:.65;margin-bottom:6px;}
+  .hint{font-size:11.5px;opacity:.6;margin-top:5px;line-height:1.5;}
+  input,textarea{width:100%;background:var(--ink-3);border:1px solid var(--line-strong);color:var(--ink);border-radius:7px;padding:9px 11px;font-family:'Inter',sans-serif;font-size:14px;}
+  input:focus,textarea:focus{outline:none;border-color:var(--brass);}
+  textarea{resize:vertical;min-height:64px;}
+  .pillrow{display:flex;flex-wrap:wrap;gap:8px;}
+  .pill{border:1px solid var(--line-strong);background:var(--ink-3);color:var(--ink);opacity:.7;font-size:13px;padding:8px 14px;border-radius:999px;cursor:pointer;}
+  .pill.sel{border-color:var(--brass);background:var(--brass);color:#fff;opacity:1;font-weight:500;}
+  .submit-btn{width:100%;background:var(--brass);color:#fff;border:none;border-radius:8px;padding:13px;font-weight:600;font-size:14.5px;cursor:pointer;margin-top:6px;}
+  .submit-btn:disabled{opacity:.5;cursor:default;}
+  .form-note{font-size:11.5px;opacity:.6;text-align:center;margin-top:10px;line-height:1.6;}
+  .err{color:var(--danger);font-size:12px;margin-top:5px;display:none;}
+  .success{display:none;text-align:center;padding:50px 20px;}
+  .success h2{font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin:14px 0 6px;}
+  .success p{opacity:.65;font-size:14px;}
+  .success button{margin-top:18px;background:transparent;border:1px solid var(--line-strong);padding:9px 18px;border-radius:7px;font-size:13px;cursor:pointer;}
+  @media(max-width:640px){ .grid2,.grid3{grid-template-columns:1fr;} }
 </style>
 </head>
 <body>
 <div class="wrap">
-
-  <div class="brand"><div class="ball"><i></i></div><span>KEITH CARD CO</span></div>
-  <h1>Sell Your Bulk</h1>
-  <p class="sub">Have Pokemon bulk to sell? Fill this out and I'll reach out with a total and next steps.</p>
-
-  <div class="pricecard">
-    <div><span class="label">Holos/Rev.</span><span class="val">$50/1k</span></div>
-    <div><span class="label">Commons/Unc.</span><span class="val">$20/1k</span></div>
-    <div><span class="label">EX Cards</span><span class="val">$0.60 ea</span></div>
-  </div>
-  <div class="pricecard row2extra">
-    <div><span class="label">VMAX/V/VSTAR</span><span class="val">$0.75 ea</span></div>
-    <div><span class="label">Full Arts</span><span class="val">$1.00 ea</span></div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-name">Keith Card Co</div>
+        <div class="brand-sub">Pokemon bulk buyer</div>
+      </div>
+    </div>
+    <a href="dashboard.html" style="font-size:12px;opacity:.4;">Dashboard</a>
   </div>
 
-  <form id="sellForm">
+  <div id="rate-rail" class="rail"></div>
 
-    <fieldset>
-      <legend>Your Info</legend>
-      <label for="name">Name</label>
-      <input type="text" id="name" required>
+  <h1 class="page-title">Sell your bulk</h1>
+  <p class="page-sub">Fill this out and I'll reach out with a total and next steps. No cards ship until a price is agreed on.</p>
 
-      <div class="row2">
-        <div>
-          <label for="email">Email</label>
-          <input type="email" id="email">
+  <div id="form-success" class="success">
+    <h2>Submission received</h2>
+    <p>Keith will review your info and reach out with an offer.</p>
+    <button onclick="location.reload()">Submit another</button>
+  </div>
+
+  <form id="sell-form">
+    <div class="card">
+      <p class="card-title"><span class="n">1</span>Your info</p>
+      <div class="grid2">
+        <div class="field"><label for="f-name">Name</label><input type="text" id="f-name"></div>
+        <div class="field"><label for="f-city">City &amp; state</label><input type="text" id="f-city"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="f-email">Email</label><input type="email" id="f-email"></div>
+        <div class="field"><label for="f-phone">Phone</label><input type="tel" id="f-phone"></div>
+      </div>
+      <div class="hint">Provide at least one so I can get back to you.</div>
+      <div class="err" id="err-contact">Enter an email or phone number.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-title"><span class="n">2</span>What you're selling</p>
+      <div class="grid3">
+        <div class="field"><label for="f-holo">Holos / reverse holos (count)</label><input type="number" min="0" id="f-holo"></div>
+        <div class="field"><label for="f-common">Commons / uncommons (count)</label><input type="number" min="0" id="f-common"></div>
+        <div class="field"><label for="f-ex">EX cards (count)</label><input type="number" min="0" id="f-ex"></div>
+      </div>
+      <div class="grid2">
+        <div class="field"><label for="f-vmax">VMAX / V / VSTAR (count)</label><input type="number" min="0" id="f-vmax"></div>
+        <div class="field"><label for="f-fa">Full arts (count)</label><input type="number" min="0" id="f-fa"></div>
+      </div>
+      <div class="err" id="err-counts">Enter at least one card count above zero.</div>
+    </div>
+
+    <div class="card">
+      <p class="card-title"><span class="n">3</span>Condition</p>
+      <div class="pillrow" id="condition-pills">
+        <button type="button" class="pill" data-val="Mint / NM">Mint / NM</button>
+        <button type="button" class="pill" data-val="Lightly Played">Lightly played</button>
+        <button type="button" class="pill" data-val="Played / Mixed">Played / mixed</button>
+        <button type="button" class="pill" data-val="Not Sure">Not sure</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <p class="card-title"><span class="n">4</span>Logistics</p>
+      <div class="field"><label for="f-photo">Photo link (optional)</label><input type="url" id="f-photo"></div>
+      <div class="hint" style="margin:0 0 12px;">Photos help me give a faster, more accurate offer.</div>
+      <div class="field">
+        <label>Preferred next step</label>
+        <div class="pillrow" id="next-pills">
+          <button type="button" class="pill" data-val="Ship to me">Ship to me</button>
+          <button type="button" class="pill" data-val="Local pickup">Local pickup</button>
+          <button type="button" class="pill" data-val="Not sure yet">Not sure yet</button>
         </div>
-        <div>
-          <label for="phone">Phone</label>
-          <input type="tel" id="phone">
-        </div>
       </div>
-      <p class="hint">Provide at least one so I can get back to you.</p>
+      <div class="field"><label for="f-notes">Anything else (optional)</label><textarea id="f-notes"></textarea></div>
+    </div>
 
-      <label for="location">City &amp; State</label>
-      <input type="text" id="location" placeholder="e.g. Norman, OK" required>
-    </fieldset>
-
-    <fieldset>
-      <legend>What You're Selling</legend>
-      <label for="holos">Estimated Holos / Reverse Holos (count)</label>
-      <input type="number" id="holos" min="0" placeholder="0">
-
-      <label for="commons">Estimated Commons / Uncommons (count)</label>
-      <input type="number" id="commons" min="0" placeholder="0">
-
-      <label for="ex">Estimated EX Cards (count)</label>
-      <input type="number" id="ex" min="0" placeholder="0">
-
-      <label for="vmax">Estimated VMAX / V / VSTAR (count)</label>
-      <input type="number" id="vmax" min="0" placeholder="0">
-
-      <label for="fullart">Estimated Full Arts (count)</label>
-      <input type="number" id="fullart" min="0" placeholder="0">
-
-      <label>General Condition</label>
-      <div class="radios">
-        <label><input type="radio" name="condition" value="Mint/Near Mint"> Mint / NM</label>
-        <label><input type="radio" name="condition" value="Lightly Played"> Lightly Played</label>
-        <label><input type="radio" name="condition" value="Played/Mixed"> Played / Mixed</label>
-        <label><input type="radio" name="condition" value="Not Sure"> Not Sure</label>
-      </div>
-
-      <label for="photos">Photo Link (optional)</label>
-      <input type="text" id="photos" placeholder="Google Drive, Imgur, etc. link">
-      <p class="hint">Photos help me give you a faster, more accurate offer.</p>
-    </fieldset>
-
-    <fieldset>
-      <legend>Logistics</legend>
-      <label>Preferred Next Step</label>
-      <div class="radios">
-        <label><input type="radio" name="method" value="Ship to buyer"> Ship to me</label>
-        <label><input type="radio" name="method" value="Local pickup/meet"> Local pickup</label>
-        <label><input type="radio" name="method" value="Not sure yet"> Not sure yet</label>
-      </div>
-
-      <label for="notes">Anything else? (optional)</label>
-      <textarea id="notes" placeholder="Sets, rare pulls, timeline, etc."></textarea>
-    </fieldset>
-
-    <button type="submit">Send My Bulk Info</button>
+    <button type="submit" class="submit-btn" id="submit-btn">Send my bulk info</button>
+    <p class="form-note">This sends your info directly to Keith Card Co. No cards are shipped until a price is agreed on.</p>
   </form>
-
-  <div id="status"></div>
-
-  <p class="foot">This sends your info directly to Keith Card Co via email.<br>No cards are shipped until a price is agreed on.</p>
 </div>
 
-<script>
-  // Replace with your actual contact email
-  const SELLER_EMAIL = "keithscardco@gmail.com";
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-  document.getElementById('sellForm').addEventListener('submit', function(e){
-    e.preventDefault();
+// TODO: replace with your Supabase project values (Project Settings > API)
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const location = document.getElementById('location').value.trim();
-    const holos = document.getElementById('holos').value || "0";
-    const commons = document.getElementById('commons').value || "0";
-    const ex = document.getElementById('ex').value || "0";
-    const vmax = document.getElementById('vmax').value || "0";
-    const fullart = document.getElementById('fullart').value || "0";
-    const condition = (document.querySelector('input[name=condition]:checked') || {}).value || "Not specified";
-    const photos = document.getElementById('photos').value.trim();
-    const method = (document.querySelector('input[name=method]:checked') || {}).value || "Not specified";
-    const notes = document.getElementById('notes').value.trim();
+const RATES = [
+  {label:'Holos / rev.', unit:'per 1k', rate:50},
+  {label:'Commons / unc.', unit:'per 1k', rate:20},
+  {label:'EX cards', unit:'ea', rate:0.60},
+  {label:'VMAX / V / VSTAR', unit:'ea', rate:0.75},
+  {label:'Full arts', unit:'ea', rate:1.00}
+];
+const rail = document.getElementById('rate-rail');
+RATES.forEach(r=>{
+  const d = document.createElement('div');
+  d.className = 'rail-item';
+  d.innerHTML = `<div class="rail-label">${r.label}</div><div class="rail-price">$${r.rate.toFixed(2)} ${r.unit}</div>`;
+  rail.appendChild(d);
+});
 
-    if(!email && !phone){
-      alert("Please provide an email or phone number so I can reach you.");
-      return;
-    }
-
-    const subject = `Bulk Sell Inquiry — ${name || "New Seller"}`;
-    const body =
-`New bulk inquiry from the Keith Card Co form:
-
-Name: ${name}
-Email: ${email || "-"}
-Phone: ${phone || "-"}
-Location: ${location}
-
-Holos/Reverse Holos: ${holos}
-Commons/Uncommons: ${commons}
-EX Cards: ${ex}
-VMAX/V/VSTAR: ${vmax}
-Full Arts: ${fullart}
-Condition: ${condition}
-Photos: ${photos || "-"}
-
-Preferred method: ${method}
-Notes: ${notes || "-"}`;
-
-    window.location.href = `mailto:${SELLER_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    const status = document.getElementById('status');
-    status.textContent = "Opening your email app to send this in — almost done!";
-    status.classList.add('ok');
+let selectedCondition = null, selectedNext = null;
+document.querySelectorAll('#condition-pills .pill').forEach(p=>{
+  p.addEventListener('click', ()=>{
+    document.querySelectorAll('#condition-pills .pill').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel'); selectedCondition = p.dataset.val;
   });
+});
+document.querySelectorAll('#next-pills .pill').forEach(p=>{
+  p.addEventListener('click', ()=>{
+    document.querySelectorAll('#next-pills .pill').forEach(x=>x.classList.remove('sel'));
+    p.classList.add('sel'); selectedNext = p.dataset.val;
+  });
+});
+
+function estimateValue(c){
+  return (c.holo/1000)*50 + (c.common/1000)*20 + c.ex*0.60 + c.vmax*0.75 + c.fa*1.00;
+}
+
+document.getElementById('sell-form').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  document.getElementById('err-contact').style.display = 'none';
+  document.getElementById('err-counts').style.display = 'none';
+
+  const name = document.getElementById('f-name').value.trim();
+  const email = document.getElementById('f-email').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const city = document.getElementById('f-city').value.trim();
+  const counts = {
+    holo: parseInt(document.getElementById('f-holo').value) || 0,
+    common: parseInt(document.getElementById('f-common').value) || 0,
+    ex: parseInt(document.getElementById('f-ex').value) || 0,
+    vmax: parseInt(document.getElementById('f-vmax').value) || 0,
+    fa: parseInt(document.getElementById('f-fa').value) || 0
+  };
+  const photo = document.getElementById('f-photo').value.trim();
+  const notes = document.getElementById('f-notes').value.trim();
+
+  let hasErr = false;
+  if(!email && !phone){ document.getElementById('err-contact').style.display = 'block'; hasErr = true; }
+  if(counts.holo+counts.common+counts.ex+counts.vmax+counts.fa <= 0){
+    document.getElementById('err-counts').style.display = 'block'; hasErr = true;
+  }
+  if(hasErr) return;
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+
+  const { error } = await supabase.from('submissions').insert({
+    name: name || 'Not provided', email, phone, city,
+    holo_count: counts.holo, common_count: counts.common, ex_count: counts.ex,
+    vmax_count: counts.vmax, fa_count: counts.fa,
+    condition: selectedCondition || 'Not specified',
+    photo_link: photo, notes,
+    next_step: selectedNext || 'Not specified',
+    est_value: estimateValue(counts),
+    handled: false
+  });
+
+  btn.disabled = false; btn.textContent = 'Send my bulk info';
+
+  if(error){
+    alert('Something went wrong sending your info. Please try again.');
+    console.error(error);
+    return;
+  }
+  document.getElementById('sell-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+});
 </script>
 </body>
 </html>
