@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Keith Card Co</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/2.44.0/iconfont/tabler-icons.min.css">
+<style>
+  :root{
+    --ink:#14181A; --ink-2:#1D2225; --ink-3:#262C2F;
+    --paper:#EFE9DA; --paper-dim:#B9B2A0;
+    --brass:#C9A227; --brass-dim:#8A711E;
+    --holo-1:#5B8FA8; --holo-2:#8A6BB0; --danger:#C7594A;
+    --line:rgba(239,233,218,0.14); --line-strong:rgba(239,233,218,0.28);
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--ink);color:var(--paper);font-family:'Inter',sans-serif;}
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px 60px;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:28px 0 20px;border-bottom:1px solid var(--line);}
+  .brand{display:flex;align-items:center;gap:12px;}
+  .brand-mark{width:34px;height:34px;border-radius:6px;background:linear-gradient(155deg,var(--holo-1),var(--holo-2));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:600;font-size:16px;color:var(--ink);}
+  .brand-name{font-family:'Fraunces',serif;font-weight:600;font-size:19px;}
+  .brand-sub{font-size:11px;color:var(--paper-dim);text-transform:uppercase;letter-spacing:.14em;}
+  .signout{background:transparent;border:1px solid var(--line-strong);color:var(--paper);padding:8px 14px;border-radius:7px;font-size:12.5px;cursor:pointer;}
+
+  #login-view{max-width:340px;margin:80px auto 0;text-align:center;}
+  #login-view h1{font-family:'Fraunces',serif;font-weight:500;font-size:22px;margin-bottom:6px;}
+  #login-view p{color:var(--paper-dim);font-size:13.5px;margin-bottom:24px;}
+  #login-view input{width:100%;background:var(--ink-2);border:1px solid var(--line-strong);color:var(--paper);border-radius:7px;padding:10px 12px;font-size:14px;margin-bottom:10px;}
+  #login-view button{width:100%;background:var(--brass);color:var(--ink);border:none;border-radius:8px;padding:12px;font-weight:600;font-size:14px;cursor:pointer;}
+  #login-err{color:var(--danger);font-size:12.5px;margin-top:10px;display:none;}
+
+  h1.page-title{font-family:'Fraunces',serif;font-weight:500;font-size:26px;margin:28px 0 4px;}
+  p.page-sub{color:var(--paper-dim);font-size:14px;margin:0 0 24px;}
+  .dash-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+  .stat{background:var(--ink-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .stat-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--paper-dim);margin-bottom:6px;}
+  .stat-val{font-family:'Fraunces',serif;font-size:22px;font-weight:500;color:var(--brass);}
+  .dash-controls{display:flex;gap:10px;margin-bottom:14px;}
+  .dash-controls input,.dash-controls select{background:var(--ink-2);border:1px solid var(--line-strong);color:var(--paper);border-radius:7px;padding:9px 11px;font-size:14px;}
+  .dash-controls input{flex:1;}
+  .empty{text-align:center;padding:60px 20px;color:var(--paper-dim);}
+  .empty i{font-size:30px;opacity:.5;}
+  .sub-card{background:var(--ink-2);border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;}
+  .sub-card.handled{opacity:.55;}
+  .sub-head{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;gap:12px;}
+  .sub-head-left{display:flex;align-items:center;gap:12px;min-width:0;}
+  .sub-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(155deg,var(--holo-1),var(--holo-2));display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px;color:var(--ink);flex-shrink:0;}
+  .sub-name{font-weight:500;font-size:14.5px;}
+  .sub-meta{font-size:12px;color:var(--paper-dim);margin-top:1px;}
+  .sub-head-right{display:flex;align-items:center;gap:14px;flex-shrink:0;}
+  .sub-est{font-family:'JetBrains Mono',monospace;color:var(--brass);font-size:14px;font-weight:500;}
+  .sub-chev{color:var(--paper-dim);transition:transform .15s ease;}
+  .sub-chev.open{transform:rotate(180deg);}
+  .sub-body{display:none;border-top:1px solid var(--line);padding:16px 18px 18px;}
+  .sub-body.open{display:block;}
+  .sub-row{display:flex;justify-content:space-between;padding:6px 0;font-size:13px;border-bottom:1px solid var(--line);}
+  .sub-row:last-of-type{border-bottom:none;}
+  .sub-row .k{color:var(--paper-dim);}
+  .sub-row .v{text-align:right;max-width:60%;}
+  .sub-actions{display:flex;gap:8px;margin-top:14px;}
+  .sub-actions button{flex:1;background:var(--ink-3);border:1px solid var(--line-strong);color:var(--paper);padding:8px;border-radius:7px;font-size:12.5px;cursor:pointer;}
+  .badge{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:5px;background:var(--ink-3);color:var(--paper-dim);border:1px solid var(--line-strong);}
+  .badge.new{background:rgba(201,162,39,0.16);color:var(--brass);border-color:var(--brass-dim);}
+  @media(max-width:640px){ .dash-stats{grid-template-columns:repeat(2,1fr);} .sub-est{display:none;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="brand-mark">K</div>
+      <div>
+        <div class="brand-name">Keith Card Co</div>
+        <div class="brand-sub">Dashboard</div>
+      </div>
+    </div>
+    <button class="signout" id="signout-btn" style="display:none;">Sign out</button>
+  </div>
+
+  <div id="login-view">
+    <h1>Sign in</h1>
+    <p>This dashboard is private. Sign in with your Supabase account.</p>
+    <input type="email" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Password">
+    <button id="login-btn">Sign in</button>
+    <div id="login-err">Incorrect email or password.</div>
+  </div>
+
+  <div id="dash-view" style="display:none;">
+    <h1 class="page-title">Submissions</h1>
+    <p class="page-sub">Every sell form comes in here automatically.</p>
+    <div class="dash-stats">
+      <div class="stat"><div class="stat-label">Total submissions</div><div class="stat-val" id="stat-total">0</div></div>
+      <div class="stat"><div class="stat-label">New</div><div class="stat-val" id="stat-new">0</div></div>
+      <div class="stat"><div class="stat-label">Est. buy total</div><div class="stat-val" id="stat-value">$0</div></div>
+      <div class="stat"><div class="stat-label">Handled</div><div class="stat-val" id="stat-handled">0</div></div>
+    </div>
+    <div class="dash-controls">
+      <input type="text" id="dash-search" placeholder="Search by name, city, or email">
+      <select id="dash-filter">
+        <option value="all">All</option>
+        <option value="new">New only</option>
+        <option value="handled">Handled only</option>
+      </select>
+    </div>
+    <div id="dash-list"></div>
+    <div id="dash-empty" class="empty" style="display:none;">
+      <i class="ti ti-inbox" aria-hidden="true"></i>
+      <p>No submissions yet.</p>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+// TODO: replace with your Supabase project values (Project Settings > API) — same as index.html
+const SUPABASE_URL = 'YOUR_SUPABASE_URL';
+const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+let allSubs = [];
+
+function escapeHtml(str){
+  if(str===undefined || str===null) return '';
+  return String(str).replace(/[&<>"']/g,
+                             
