@@ -8,13 +8,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
- :root{
-  --ink:#1A1A1A; --ink-2:#FFFFFF; --ink-3:#F1F2F4;
-  --paper:#F7F7F8; --paper-dim:#6B7280;
-  --brass:#374151; --brass-dim:#111827;
-  --holo-1:#9CA3AF; --holo-2:#4B5563; --danger:#DC2626;
-  --line:rgba(17,24,39,0.10); --line-strong:rgba(17,24,39,0.18);
-
+  :root{
+    --ink:#1A1A1A; --ink-2:#FFFFFF; --ink-3:#F1F2F4;
+    --paper:#F7F7F8; --paper-dim:#6B7280;
+    --brass:#374151; --brass-dim:#111827;
+    --holo-1:#9CA3AF; --holo-2:#4B5563; --danger:#DC2626;
+    --line:rgba(17,24,39,0.10); --line-strong:rgba(17,24,39,0.18);
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:'Inter',sans-serif;}
@@ -142,94 +141,6 @@
 <script type="module">
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
-// TODO: replace with your Supabase project values (Project Settings > API)
 const SUPABASE_URL = 'https://vuegtizymjktlywffwuw.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_b1jcaK4XEf_M2WtX0Nd-2w_G_jOByOK';
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-const RATES = [
-  {label:'Holos / rev.', unit:'per 1k', rate:50},
-  {label:'Commons / unc.', unit:'per 1k', rate:20},
-  {label:'EX cards', unit:'ea', rate:0.60},
-  {label:'VMAX / V / VSTAR', unit:'ea', rate:0.75},
-  {label:'Full arts', unit:'ea', rate:1.00}
-];
-const rail = document.getElementById('rate-rail');
-RATES.forEach(r=>{
-  const d = document.createElement('div');
-  d.className = 'rail-item';
-  d.innerHTML = `<div class="rail-label">${r.label}</div><div class="rail-price">$${r.rate.toFixed(2)} ${r.unit}</div>`;
-  rail.appendChild(d);
-});
-
-let selectedCondition = null, selectedNext = null;
-document.querySelectorAll('#condition-pills .pill').forEach(p=>{
-  p.addEventListener('click', ()=>{
-    document.querySelectorAll('#condition-pills .pill').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel'); selectedCondition = p.dataset.val;
-  });
-});
-document.querySelectorAll('#next-pills .pill').forEach(p=>{
-  p.addEventListener('click', ()=>{
-    document.querySelectorAll('#next-pills .pill').forEach(x=>x.classList.remove('sel'));
-    p.classList.add('sel'); selectedNext = p.dataset.val;
-  });
-});
-
-function estimateValue(c){
-  return (c.holo/1000)*50 + (c.common/1000)*20 + c.ex*0.60 + c.vmax*0.75 + c.fa*1.00;
-}
-
-document.getElementById('sell-form').addEventListener('submit', async (e)=>{
-  e.preventDefault();
-  document.getElementById('err-contact').style.display = 'none';
-  document.getElementById('err-counts').style.display = 'none';
-
-  const name = document.getElementById('f-name').value.trim();
-  const email = document.getElementById('f-email').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-  const city = document.getElementById('f-city').value.trim();
-  const counts = {
-    holo: parseInt(document.getElementById('f-holo').value) || 0,
-    common: parseInt(document.getElementById('f-common').value) || 0,
-    ex: parseInt(document.getElementById('f-ex').value) || 0,
-    vmax: parseInt(document.getElementById('f-vmax').value) || 0,
-    fa: parseInt(document.getElementById('f-fa').value) || 0
-  };
-  const photo = document.getElementById('f-photo').value.trim();
-  const notes = document.getElementById('f-notes').value.trim();
-
-  let hasErr = false;
-  if(!email && !phone){ document.getElementById('err-contact').style.display = 'block'; hasErr = true; }
-  if(counts.holo+counts.common+counts.ex+counts.vmax+counts.fa <= 0){
-    document.getElementById('err-counts').style.display = 'block'; hasErr = true;
-  }
-  if(hasErr) return;
-
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true; btn.textContent = 'Sending...';
-
-  const { error } = await supabase.from('submissions').insert({
-    name: name || 'Not provided', email, phone, city,
-    holo_count: counts.holo, common_count: counts.common, ex_count: counts.ex,
-    vmax_count: counts.vmax, fa_count: counts.fa,
-    condition: selectedCondition || 'Not specified',
-    photo_link: photo, notes,
-    next_step: selectedNext || 'Not specified',
-    est_value: estimateValue(counts),
-    handled: false
-  });
-
-  btn.disabled = false; btn.textContent = 'Send my bulk info';
-
-  if(error){
-    alert('Something went wrong sending your info. Please try again.');
-    console.error(error);
-    return;
-  }
-  document.getElementById('sell-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
-});
-</script>
-</body>
-</html>
+const supabase = createClient(SUPABASE_URL,
